@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Báo Động</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Khung chứa nút switch -->
+    <div class="switch-container">
+        <div class="description">Bật Chức Năng Aimlock Sẽ Giúp Bạn Cải Thiện Kĩ Năng Trong Game Free Fire | Quá Trình Chỉ Mất Vài Giây !</div>
+        <div class="separator"></div>
+        <label class="switch">
+            <input type="checkbox" id="toggleSwitch">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <!-- Thông báo -->
+    <div class="notification" id="notification">
+        <i class="fas fa-info-circle"></i> 
+        <span id="message">Đang xử lý...</span>
+        <button class="close-btn" onclick="closeNotification()">✖</button>
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+    </div>
+
+    <!-- Phần liên hệ -->
+    <div class="contact-container">
+        <a href="https://t.me/suporthuanha" target="_blank">Telegram</a>
+        <a href="https://zaloapp.com/qr/p/1s3nnmtozvd1l?src=qr" target="_blank">Zalo</a>
+        <a href="https://www.youtube.com/@Hu%E1%BA%A5nBot-m7g" target="_blank">YouTube</a>
+        <a href="https://www.facebook.com/profile.php?id=61561543393412" target="_blank">Facebook</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
