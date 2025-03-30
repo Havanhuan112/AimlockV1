@@ -1,128 +1,339 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông Báo Động</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Lớp phủ mờ */
-.maintenance-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/* Hộp thông báo bảo trì */
-.maintenance-box {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-    backdrop-filter: blur(10px);
-    animation: glow 1.5s infinite alternate;
-}
-
-/* Hiệu ứng viền phát sáng */
-@keyframes glow {
-    from {
-        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Bebas+Neue&family=Big+Shoulders:opsz,wght@10..72,100..900&family=Bungee+Tint&family=Lilita+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&family=Teko:wght@300..700&family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+  <meta name="msapplication-TileColor" content="#000">
+  <meta name="theme-color" content="#000">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+  <style>
+    /* Nền trang bằng ảnh, phủ toàn bộ màn hình */
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("https://i.imgur.com/XMw5FDk.jpeg") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+font-family: "Teko", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    to {
-        box-shadow: 0 0 25px rgba(255, 215, 0, 1);
+    /* Khung chứa Mod Menu với nền mờ không màu, border xanh đậm 1px và hiệu ứng blur */
+    .mod-container {
+      width: 320px;
+      background: rgba(255, 255, 255, 0.2); /* nền trong suốt */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid #fff; /* viền xanh đậm */
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-}
-
-/* Tiêu đề */
-.maintenance-box h2 {
-    color: #FFD700;
-    font-size: 24px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-/* Nội dung thông báo */
-.maintenance-box p {
-    color: #fff;
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-/* Loader hiệu ứng VIP */
-.loader {
-    margin-top: 15px;
-    width: 50px;
-    height: 50px;
-    border: 5px solid transparent;
-    border-top: 5px solid #FFD700;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-    </style>
+    .mod-container h2 {
+      margin-bottom: 1rem;
+      color: #000;
+    }
+    /* Kiểu cho các switch */
+    .switch {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 10px 0;
+    }
+    .switch label {
+      margin-left: 8px;
+      cursor: pointer;
+      color: #fff; /* chữ màu trắng */
+    }
+    .switch input[type="checkbox"] {
+      width: 40px;
+      height: 20px;
+      appearance: none;
+      background: #ccc;
+      outline: none;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .switch input[type="checkbox"]::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .switch input[type="checkbox"]:checked {
+      background: #4cd964;
+    }
+    .switch input[type="checkbox"]:checked::before {
+      transform: translateX(20px);
+    }
+  </style>
 </head>
 <body>
-    <div class="maintenance-overlay">
-        <div class="maintenance-box">
-            <h2>🚧  Đang Bảo Trì 🚧</h2>
-            <p>Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn. Vui lòng quay lại sau!</p>
-<!-- Phần liên hệ -->
-        <a href="https://t.me/suporthuanha" target="_blank">Telegram</a>
-        <a href="https://zaloapp.com/qr/p/1s3nnmtozvd1l?src=qr" target="_blank">Zalo</a>
-        <a href="https://www.youtube.com/@Hu%E1%BA%A5nBot-m7g" target="_blank">YouTube</a>
-        <a href="https://www.facebook.com/profile.php?id=61561543393412" target="_blank">Facebook</a>
-            <div class="loader"></div>
-        </div>
-    </div>
+  <!-- Load Notyf JS từ jsDelivr -->
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script>
+    /***** Khởi tạo Notyf *****/
+    const notyf = new Notyf();
 
+    // Hàm hiển thị thông báo, đảm bảo không hiển thị đồng thời nhiều thông báo
+    function showNotification(type, message) {
+      notyf.dismissAll();
+      if (type === "success") {
+        notyf.success(message);
+      } else if (type === "error") {
+        notyf.error(message);
+      } else if (type === "warning") {
+        notyf.open({ type: 'warning', message });
+      }
+    }
 
-    <!-- Khung chứa nút switch -->
-    <div class="switch-container">
-        <div class="description">Bật Chức Năng Aimlock Sẽ Giúp Bạn Cải Thiện Kĩ Năng Trong Game Free Fire | Quá Trình Chỉ Mất Vài Giây !</div>
-        <div class="separator"></div>
-        <label class="switch">
-            <input type="checkbox" id="toggleSwitch">
-            <span class="slider"></span>
-        </label>
-    </div>
+    /***** Các biến toàn cục để lưu interval của các coder *****/
+    let coder1Interval = null;
+    let coder2Interval = null;
+    let coder3Interval = null;
+    let coder4Interval = null;
+    let coder5Interval = null;
 
-    <!-- Thông báo -->
-    <div class="notification" id="notification">
-        <i class="fas fa-info-circle"></i> 
-        <span id="message">Đang xử lý...</span>
-        <button class="close-btn" onclick="closeNotification()">✖</button>
-        <div class="loading-container" id="loadingContainer">
-            <div class="loading-bar" id="loadingBar"></div>
-        </div>
-    </div>
+    /***** Các đoạn mã coder được mã hóa bằng Base64 *****/
+    // Đoạn coder 1: sử dụng tham số sensitivity
+    const coder1Base64 = "Y29uc29sZS5sb2coJ0NvZGVyIDEgZXhlY3V0ZWQgd2l0aCBzb21lbnNpcml0eTogJyArIHNlbml0aXZpdHkpOw==";
+    // Đoạn coder 2: Mã giả lập in ra thông báo về Free Fire
+    const coder2Base64 = "Y29uc29sZS5sb2coJ0NvZGVyIDIgZXhlY3V0ZWQ6IFB1bGwgRnJlZSBGaXJlICBvcGVuZWQgJ2ZyZWUgZmlyZScpOw==";
+    // Đoạn coder 3: mã đơn giản
+    const coder3Base64 = "Y29uc29sZS5sb2coJ0NvZGVyIDMgZXhlY3V0ZWQnKTs=";
+    // Đoạn coder 4: mã đơn giản
+    const coder4Base64 = "Y29uc29sZS5sb2coJ0NvZGVyIDQgZXhlY3V0ZWQnKTs=";
+    // Đoạn coder 5: mã đơn giản
+    const coder5Base64 = "Y29uc29sZS5sb2coJ0NvZGVyIDUgZXhlY3V0ZWQnKTs=";
 
-    <!-- Phần liên hệ -->
-    <div class="contact-container">
-        <a href="https://t.me/suporthuanha" target="_blank">Telegram</a>
-        <a href="https://zaloapp.com/qr/p/1s3nnmtozvd1l?src=qr" target="_blank">Zalo</a>
-        <a href="https://www.youtube.com/@Hu%E1%BA%A5nBot-m7g" target="_blank">YouTube</a>
-        <a href="https://www.facebook.com/profile.php?id=61561543393412" target="_blank">Facebook</a>
-    </div>
-    <script src="script.js"></script>
-    <script>
-        // nênd mờ 
-// Chặn tất cả thao tác trên trang
-document.addEventListener("DOMContentLoaded", function () {
-    document.body.style.pointerEvents = "none";
-});
-    </script>
+    /***** Hàm chạy coder từ Base64; nếu có tham số (ví dụ sensitivity) sẽ truyền vào *****/
+    function runCoder(base64Code, param) {
+      let decodedCode = atob(base64Code);
+      // Nếu có tham số, tạo hàm với tham số 'sensitivity'
+      if (param !== undefined) {
+        let func = new Function("sensitivity", decodedCode);
+        func(param);
+      } else {
+        eval(decodedCode);
+      }
+    }
+
+    /***** Hàm cho Switch 1 *****/
+    function startCoder1(sensitivity) {
+      if (coder1Interval) {
+        clearInterval(coder1Interval);
+      }
+      coder1Interval = setInterval(() => {
+        runCoder(coder1Base64, sensitivity);
+      }, 5000);
+    }
+    function stopCoder1() {
+      if (coder1Interval) {
+        clearInterval(coder1Interval);
+        coder1Interval = null;
+      }
+    }
+
+    /***** Hàm cho Switch 2: Mở ứng dụng Free Fire trên iPhone *****/
+    function startCoder2(checkbox) {
+      if (!coder2Interval) {
+        // Hiển thị thông báo yêu cầu chấp nhận mở Free Fire
+        if (confirm("Bạn có muốn mở Free Fire trên thiết bị iPhone?")) {
+          showNotification("success", "Đang mở Free Fire...");
+          // Thực hiện chuyển hướng đến URL scheme của Free Fire (URL scheme cần được Free Fire hỗ trợ)
+          window.location.href = "freefiremax://";
+          // Chạy đoạn coder2 để log ra console (giả lập)
+          coder2Interval = setInterval(() => {
+            runCoder(coder2Base64);
+          }, 5000);
+        } else {
+          // Nếu không chấp nhận, bỏ chọn switch
+          checkbox.checked = false;
+        }
+      }
+    }
+    function stopCoder2() {
+      if (coder2Interval) {
+        clearInterval(coder2Interval);
+        coder2Interval = null;
+      }
+    }
+
+    /***** Hàm cho Switch 3 *****/
+    function startCoder3() {
+      if (!coder3Interval) {
+        coder3Interval = setInterval(() => {
+          runCoder(coder3Base64);
+        }, 5000);
+      }
+    }
+    function stopCoder3() {
+      if (coder3Interval) {
+        clearInterval(coder3Interval);
+        coder3Interval = null;
+      }
+    }
+
+    /***** Hàm cho Switch 4 *****/
+    function startCoder4() {
+      if (!coder4Interval) {
+        coder4Interval = setInterval(() => {
+          runCoder(coder4Base64);
+        }, 5000);
+      }
+    }
+    function stopCoder4() {
+      if (coder4Interval) {
+        clearInterval(coder4Interval);
+        coder4Interval = null;
+      }
+    }
+
+    /***** Hàm cho Switch 5 *****/
+    function startCoder5() {
+      if (!coder5Interval) {
+        coder5Interval = setInterval(() => {
+          runCoder(coder5Base64);
+        }, 5000);
+      }
+    }
+    function stopCoder5() {
+      if (coder5Interval) {
+        clearInterval(coder5Interval);
+        coder5Interval = null;
+      }
+    }
+
+    /***** Hàm tạo giao diện Mod Menu *****/
+    function createModMenu() {
+      clearTimeout(loginTimeout);
+      window.loginComplete = true;
+
+      // Tạo khung chứa menu
+      let container = document.createElement("div");
+      container.className = "mod-container";
+
+      let title = document.createElement("h2");
+      title.innerText = "Hà Văn Huấn";
+      container.appendChild(title);
+
+      // Danh sách chức năng cho 5 switch
+      let features = [
+        "DIPI MOD",
+        "FREE FIRE",
+        "AIMLOCK",
+        "AIMHEAD ANTIBAND",
+        "AIMBOT 35%"
+      ];
+
+      features.forEach((feature, index) => {
+        let switchDiv = document.createElement("div");
+        switchDiv.className = "switch";
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = "switch" + index;
+
+        let label = document.createElement("label");
+        label.htmlFor = "switch" + index;
+        label.innerText = feature;
+
+        switchDiv.appendChild(checkbox);
+        switchDiv.appendChild(label);
+        container.appendChild(switchDiv);
+
+        // Xử lý sự kiện cho từng switch
+        checkbox.addEventListener("change", function() {
+          if (this.checked) {
+            showNotification("success", feature + " đã được bật!");
+            // Gọi hàm tương ứng với từng switch
+            if (index === 0) {
+              let sensitivity = prompt("Nhập số smooth cho Coder 1:");
+              if (sensitivity !== null && sensitivity.trim() !== "") {
+                showNotification("success", "Nhập đẹp! Số smooth: " + sensitivity);
+                startCoder1(sensitivity);
+              } else {
+                showNotification("error", "Bạn chưa nhập số, chức năng sẽ bị tắt!");
+                this.checked = false;
+              }
+            } else if (index === 1) {
+              // Đối với Switch 2, truyền tham chiếu checkbox để nếu người dùng từ chối thì bỏ chọn
+              startCoder2(this);
+            } else if (index === 2) {
+              startCoder3();
+            } else if (index === 3) {
+              startCoder4();
+            } else if (index === 4) {
+              startCoder5();
+            }
+          } else {
+            showNotification("error", feature + " đã được tắt!");
+            // Dừng coder tương ứng khi tắt switch
+            if (index === 0) {
+              stopCoder1();
+            } else if (index === 1) {
+              stopCoder2();
+            } else if (index === 2) {
+              stopCoder3();
+            } else if (index === 3) {
+              stopCoder4();
+            } else if (index === 4) {
+              stopCoder5();
+            }
+          }
+        });
+      });
+
+      document.body.appendChild(container);
+    }
+
+    /***** Thời gian đăng nhập: nếu sau 60 giây chưa đăng nhập thành công, thoát mod *****/
+    let loginTimeout = setTimeout(() => {
+      if (!window.loginComplete) {
+        alert("Hết 60 giây, bạn đã bị thoát Mod!");
+        window.location.href = "https://example.com";
+      }
+    }, 60000);
+
+    /***** Hàm xử lý đăng nhập *****/
+    function login() {
+      let username = prompt("Nhập tài khoản:");
+      if (username === "havanhuan") {
+        let password = prompt("Nhập mật khẩu:");
+        if (password === "123") {
+          alert("Đăng nhập thành công! Chào mừng " + username);
+          localStorage.setItem("loggedIn", "true");
+          createModMenu();
+        } else {
+          alert("Sai mật khẩu!");
+          window.location.href = "https://example.com";
+        }
+      } else {
+        alert("Sai tài khoản!");
+        window.location.href = "https://example.com";
+      }
+    }
+
+    // Nếu thiết bị đã đăng nhập trước đó, tự động đăng nhập mà không cần prompt
+    if (localStorage.getItem("loggedIn") === "true") {
+      createModMenu();
+    } else {
+      login();
+    }
+  </script>
 </body>
 </html>
